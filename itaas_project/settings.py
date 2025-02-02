@@ -27,6 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Custom user model from accounts app
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Django Channels configuration
+ASGI_APPLICATION = "itaas_project.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 # Application definition
 
@@ -37,6 +48,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third-party apps
+    'rest_framework',
+    'channels',
+    # Local apps
+    'accounts',
+    'subscriptions',
+    'services',
+    'billing',
+    'messaging',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,40 @@
+<!-- dashboard/templates/dashboard/dashboard_home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ request.user.username }}</h1>
+    <section>
+        <h2>Your Subscriptions</h2>
+        <ul>
+            {% for subscription in subscriptions %}
+                <li>{{ subscription.tier }} – Next Billing: {{ subscription.next_billing_date }}</li>
+            {% empty %}
+                <li>No active subscriptions.</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section>
+        <h2>Your Invoices</h2>
+        <ul>
+            {% for invoice in invoices %}
+                <li>Invoice #{{ invoice.id }}: ${{ invoice.amount }} – {% if invoice.paid %}Paid{% else %}Due{% endif %}</li>
+            {% empty %}
+                <li>No invoices available.</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section>
+        <h2>Your Service Orders</h2>
+        <ul>
+            {% for order in service_orders %}
+                <li>{{ order.service_type }} on {{ order.scheduled_date }} – {% if order.completed %}Completed{% else %}Pending{% endif %}</li>
+            {% empty %}
+                <li>No service orders available.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>
