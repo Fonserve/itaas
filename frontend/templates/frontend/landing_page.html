@@ -1,0 +1,88 @@
+{% extends 'frontend/base.html' %}
+
+{% block extra_css %}
+<style>
+    .hero {
+        text-align: center;
+        padding: 3rem 1rem;
+        background: #eaf7ee;
+    }
+
+    .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero button {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .hero button:hover {
+        background: #45a049;
+        transition: 0.3s;
+    }
+
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        padding: 2rem;
+    }
+
+    .feature {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature i {
+        font-size: 2rem;
+        color: #4CAF50;
+        margin-bottom: 1rem;
+    }
+
+    .feature h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2>Everything You Need, Delivered as a Service</h2>
+    <p>Streamline your IT operations with our comprehensive solutions.</p>
+    <button>{{ cta_text }}</button>
+</section>
+<section class="features" id="features">
+    <div class="feature">
+        <i class="fas fa-cloud"></i>
+        <h3>Cloud Solutions</h3>
+        <p>Scale your business with our secure and reliable cloud platforms.</p>
+    </div>
+    <div class="feature">
+        <i class="fas fa-lock"></i>
+        <h3>Data Security</h3>
+        <p>Your data is safe with our cutting-edge security measures.</p>
+    </div>
+    <div class="feature">
+        <i class="fas fa-headset"></i>
+        <h3>24/7 Support</h3>
+        <p>Our team is available around the clock for all your needs.</p>
+    </div>
+</section>
+{% endblock %}
