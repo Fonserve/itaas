@@ -1,88 +1,63 @@
 {% extends 'frontend/base.html' %}
 
-{% block extra_css %}
-<style>
-    .hero {
-        text-align: center;
-        padding: 3rem 1rem;
-        background: #eaf7ee;
-    }
-
-    .hero h2 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .hero p {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-    }
-
-    .hero button {
-        background: #4CAF50;
-        color: white;
-        border: none;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    .hero button:hover {
-        background: #45a049;
-        transition: 0.3s;
-    }
-
-    .features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1rem;
-        padding: 2rem;
-    }
-
-    .feature {
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 1.5rem;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .feature i {
-        font-size: 2rem;
-        color: #4CAF50;
-        margin-bottom: 1rem;
-    }
-
-    .feature h3 {
-        margin-top: 0;
-        margin-bottom: 1rem;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <section class="hero">
-    <h2>Everything You Need, Delivered as a Service</h2>
-    <p>Streamline your IT operations with our comprehensive solutions.</p>
-    <button>{{ cta_text }}</button>
+    <h2>Fonserve: Your Partner in Business IT Solutions</h2>
+    <p>We provide comprehensive IT services, from on-premise to cloud, tailored to your business needs. Save costs with our IT as a Service model.</p>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'dashboard-home' %}"><button>{{ cta_text }}</button></a>
+    {% else %}
+        <a href="{% url 'frontend:register' %}"><button>{{ cta_text }}</button></a>
+    {% endif %}
 </section>
+
 <section class="features" id="features">
     <div class="feature">
+        <i class="fas fa-server"></i>
+        <h3>On-Premise Solutions</h3>
+        <p>Robust and reliable on-premise IT infrastructure tailored to your business requirements.</p>
+    </div>
+    <div class="feature">
         <i class="fas fa-cloud"></i>
-        <h3>Cloud Solutions</h3>
-        <p>Scale your business with our secure and reliable cloud platforms.</p>
+        <h3>Cloud Services</h3>
+        <p>Scalable and secure cloud solutions to enhance your business agility and efficiency.</p>
     </div>
     <div class="feature">
-        <i class="fas fa-lock"></i>
-        <h3>Data Security</h3>
-        <p>Your data is safe with our cutting-edge security measures.</p>
+        <i class="fas fa-coins"></i>
+        <h3>IT as a Service (ITaaS)</h3>
+        <p>Cost-effective IT solutions with flexible packages designed to meet all your business needs.</p>
     </div>
     <div class="feature">
-        <i class="fas fa-headset"></i>
-        <h3>24/7 Support</h3>
-        <p>Our team is available around the clock for all your needs.</p>
+        <i class="fas fa-shield-alt"></i>
+        <h3>Cybersecurity</h3>
+        <p>Protect your business with our comprehensive cybersecurity solutions, ensuring data integrity and compliance.</p>
     </div>
+</section>
+
+<section class="about-us" id="about-us">
+    <h2>About Fonserve</h2>
+    <p>Fonserve is dedicated to providing top-tier IT and cybersecurity solutions tailored to your business needs. As a 10-year Air Force veteran-owned company, we bring a commitment to excellence, precision, and security to every project. Our mission is to empower businesses with reliable, cost-effective, and cutting-edge IT services.</p>
+</section>
+
+<section class="testimonials" id="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial">
+        <p>"Fonserve has transformed our IT operations. Their proactive approach and quick response times have significantly improved our efficiency." - John Doe, CEO</p>
+    </div>
+</section>
+
+<section class="our-approach" id="our-approach">
+    <h2>Our Approach</h2>
+    <p>At Fonserve, we believe in a proactive and customer-centric approach. We work closely with our clients to understand their unique challenges and develop customized IT solutions that drive business growth. Our team of experts is committed to providing reliable support and innovative strategies to keep your business ahead of the curve.</p>
+</section>
+
+<section class="why-choose-us" id="why-choose-us">
+    <h2>Why Choose Fonserve?</h2>
+    <ul>
+        <li><strong>Expertise:</strong> Experienced professionals with a deep understanding of IT and cybersecurity.</li>
+        <li><strong>Reliability:</strong> Dependable support and solutions to keep your business running smoothly.</li>
+        <li><strong>Customization:</strong> Tailored services to meet your specific business needs.</li>
+        <li><strong>Cost-Effective:</strong> Competitive pricing and flexible packages to maximize your ROI.</li>
+    </ul>
 </section>
 {% endblock %}

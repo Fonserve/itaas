@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h2>Welcome to My Website</h2>
+        <p>This is a simple website built with Django.</p>
+        <button>Learn More</button>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-code"></i>
+            <h3>Clean Code</h3>
+            <p>Well-structured and maintainable code.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-rocket"></i>
+            <h3>Fast Performance</h3>
+            <p>Optimized for speed and efficiency.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>Responsive Design</h3>
+            <p>Works perfectly on all devices.</p>
+        </div>
+    </section>
+{% endblock %}

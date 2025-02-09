@@ -1,0 +1,27 @@
+{% extends 'frontend/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Login</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <form class="login-form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+    
+    <div class="mt-3">
+        <p>Don't have an account? <a href="{% url 'frontend:login' %}">login here</a></p>
+    </div>
+</div>
+{% endblock %}
+

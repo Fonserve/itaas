@@ -4,67 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title }}{% endblock %}</title>
+    {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background: #4CAF50;
-            color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #333;
-        }
-
-        nav a {
-            color: white;
-            padding: 1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        nav a:hover {
-            background: #4CAF50;
-            transition: 0.3s;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            background: #333;
-            color: white;
-            margin-top: 2rem;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
         {% block header %}
-        <h1>Welcome to ITaaS Solutions</h1>
+        <h1>IT as a Service</h1>
         {% endblock %}
     </header>
     
     <nav>
         {% block navigation %}
+        <a href="{% url 'frontend:home' %}">Home</a>
         <a href="#features">Features</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'frontend:myaccount' %}">My Account</a>
+            <a href="{% url 'frontend:logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'frontend:login' %}">Login</a>
+            <a href="{% url 'frontend:register' %}">Register</a>
+        {% endif %}
         {% endblock %}
     </nav>
 

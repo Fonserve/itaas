@@ -1,0 +1,46 @@
+@import 'variables.css';
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: var(--spacing-md) var(--spacing-xl);
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background: var(--secondary-color);
+}
+
+nav a {
+    color: var(--white);
+    padding: var(--spacing-md);
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+nav a:hover {
+    background: var(--primary-color);
+    transition: var(--transition-speed);
+}
+
+footer {
+    text-align: center;
+    padding: var(--spacing-md) 0;
+    background: var(--secondary-color);
+    color: var(--white);
+    margin-top: var(--spacing-xl);
+}

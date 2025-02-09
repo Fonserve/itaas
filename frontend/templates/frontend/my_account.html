@@ -1,0 +1,11 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+<div class="account-container">
+    <h2>My Account</h2>
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+    <a href="{% url 'dashboard-home' %}"><button>Go to Dashboard</button></a>
+    <!-- Add more account management features here -->
+</div>
+{% endblock %}
