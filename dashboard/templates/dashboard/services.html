@@ -1,0 +1,70 @@
+{% extends 'dashboard/admin_base.html' %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+    <h1>Services</h1>
+
+    <section>
+        <h2>Available Services</h2>
+        <div class="services-grid">
+            {% for service in services %}
+                <div class="service-item">
+                    <strong>{{ service.name }}</strong>
+                    <p>{{ service.description }}</p>
+                    <p>${{ service.base_price }}</p>
+                    <a href="#" class="button">Manage Contract</a>
+                </div>
+            {% empty %}
+                <p>No services available.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <h2>Your Active Service Orders</h2>
+        <div class="orders-grid">
+            {% for order in service_orders %}
+                <div class="order-item">
+                    <p>{{ order.service.name }}</p>
+                    <p>{{ order.start_date }} to {{ order.end_date }}</p>
+                    <p>{{ order.get_status_display }}</p>
+                    <a href="#" class="button">Change Order</a>
+                    <a href="#" class="button button-cancel">Cancel Order</a>
+                </div>
+            {% empty %}
+                <p>No active service orders.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <h2>Your Subscriptions</h2>
+        <div class="subscriptions-grid">
+            {% for subscription in subscriptions %}
+                <div class="subscription-item">
+                    <p>Contract: {{ subscription.tier.get_name_display }}</p>
+                    <p>Term: {{ subscription.get_contract_term_display }}</p>
+                    <p>Valid until: {{ subscription.end_date }}</p>
+                    <a href="#" class="button">Modify Subscription</a>
+                    <a href="#" class="button button-cancel">Cancel Subscription</a>
+                </div>
+            {% empty %}
+                <p>No active subscriptions.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <h2>Upcoming Service Dates</h2>
+        <div class="upcoming-grid">
+            {% for order in upcoming_orders %}
+                <div class="upcoming-item">
+                    <p>{{ order.service.name }} starting on {{ order.start_date }}</p>
+                </div>
+            {% empty %}
+                <p>No upcoming services.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

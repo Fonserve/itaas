@@ -9,17 +9,40 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/components.css' %}">
     <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
-    {% block extra_css %}{% endblock %}
+    {% block extra_css %}
+    <!-- Add any extra CSS specific to the dashboard here -->
+    <style>
+        .dashboard-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+        .subscription-list, .service-orders {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .subscription-card, .order-card {
+            flex: 1 1 200px; /* flex-grow, flex-shrink, flex-basis */
+            padding: 10px;
+            border: 1px solid #eee;
+            background-color: white;
+        }
+    </style>
+    {% endblock %}
 </head>
 <body>
     <div class="dashboard-container">
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="{% url 'dashboard:home' %}"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
-                <li><a href="#"><i class="fas fa-file-invoice"></i> Invoices</a></li>
-                <li><a href="#"><i class="fas fa-tools"></i> Services</a></li>
-                <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+                <li><a href="{% url 'dashboard:home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#" {% if request.resolver_match.url_name == 'users' %}class="active"{% endif %}><i class="fas fa-users"></i> Users</a></li>
+                <li><a href="#" {% if request.resolver_match.url_name == 'invoices' %}class="active"{% endif %}><i class="fas fa-file-invoice"></i> Invoices</a></li>
+                <li><a href="{% url 'dashboard:services' %}" {% if request.resolver_match.url_name == 'services' %}class="active"{% endif %}><i class="fas fa-tools"></i> Services</a></li>
+                <li><a href="#" {% if request.resolver_match.url_name == 'settings' %}class="active"{% endif %}><i class="fas fa-cogs"></i> Settings</a></li>
                 <li><a href="{% url 'frontend:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </nav>

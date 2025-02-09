@@ -34,6 +34,12 @@ The ITaaS Platform is designed to simplify IT service management for both servic
 - **Admin & Operator Dashboard:**
   A comprehensive interface for administrators to manage customers, orders, subscriptions, and financial metrics.
 
+- **Service Catalog:**
+  Define and manage available services, including one-time and recurring options.
+
+- **Subscription Management:**
+  Enable users to subscribe to service contracts with different tiers and billing cycles.
+
 - **Real-Time Messaging:**
   Integrated messaging system powered by Django Channels, enabling live communication between customers and technicians.
 

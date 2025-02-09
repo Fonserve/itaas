@@ -9,6 +9,7 @@
     --light-bg: #eaf7ee;
     --border-color: #ddd;
     --error-color: #dc3545;
+    --red: #f0506e; /* Lighter shade of red */
 
     /* Spacing */
     --spacing-xs: 0.5rem;

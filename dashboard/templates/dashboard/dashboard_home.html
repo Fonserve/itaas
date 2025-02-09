@@ -5,13 +5,48 @@
 
 {% block content %}
     <h1>Welcome, {{ request.user.username }}</h1>
+    
     <section class="dashboard-section">
-        <h2>Your Subscriptions</h2>
-        <ul>
+        <h2>Your Service Contracts</h2>
+        <div class="subscription-list">
             {% for subscription in subscriptions %}
-                <li>{{ subscription.tier }} – Next Billing: {{ subscription.next_billing_date }}</li>
+                <div class="subscription-card">
+                    <h3>{{ subscription.tier.get_name_display }}</h3>
+                    <p>Contract Term: {{ subscription.get_contract_term_display }}</p>
+                    <p>Valid until: {{ subscription.end_date }}</p>
+                    <p>Next billing: {{ subscription.next_billing_date }}</p>
+                    <p>Annual Rate: ${{ subscription.annual_rate }}</p>
+                </div>
             {% empty %}
-                <li>No active subscriptions.</li>
+                <p>No active service contracts.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="dashboard-section">
+        <h2>Your Service Orders</h2>
+        <div class="service-orders">
+            {% for order in service_orders %}
+                <div class="order-card">
+                    <h3>{{ order.service.name }}</h3>
+                    <p>Status: {{ order.get_status_display }}</p>
+                    <p>Duration: {{ order.start_date }} to {{ order.end_date }}</p>
+                    <p>Billing: {{ order.service.get_billing_frequency_display }}</p>
+                    <p>Total Cost: ${{ order.total_cost }}</p>
+                </div>
+            {% empty %}
+                <p>No active service orders.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="dashboard-section">
+        <h2>Available Services</h2>
+        <ul>
+            {% for service in services %}
+                <li>{{ service.name }} - {{ service.description }} - ${{ service.price }} ({{ service.get_service_type_display }})</li>
+            {% empty %}
+                <li>No services available.</li>
             {% endfor %}
         </ul>
     </section>
@@ -22,16 +57,6 @@
                 <li>Invoice #{{ invoice.id }}: ${{ invoice.amount }} – {% if invoice.paid %}Paid{% else %}Due{% endif %}</li>
             {% empty %}
                 <li>No invoices available.</li>
-            {% endfor %}
-        </ul>
-    </section>
-    <section class="dashboard-section">
-        <h2>Your Service Orders</h2>
-        <ul>
-            {% for order in service_orders %}
-                <li>{{ order.service_type }} on {{ order.scheduled_date }} – {% if order.completed %}Completed{% else %}Pending{% endif %}</li>
-            {% empty %}
-                <li>No service orders available.</li>
             {% endfor %}
         </ul>
     </section>
