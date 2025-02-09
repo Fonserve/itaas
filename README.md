@@ -104,8 +104,8 @@ The project is divided into the following modular Django apps:
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/yourusername/itaas_platform.git
-    cd itaas_platform
+    git clone https://github.com/Fonserve/itaas.git
+    cd itaas
     ```
 
 2. **Create and Activate a Virtual Environment:**
@@ -131,7 +131,7 @@ The project is divided into the following modular Django apps:
 5. **Optional: Run Django Channels (for real-time features):**
 
     ```bash
-    daphne itaas_project.asgi:application
+    daphne itaas.asgi:application
     ```
 
 ---
