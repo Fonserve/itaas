@@ -1,12 +1,11 @@
 <!-- dashboard/templates/dashboard/dashboard_home.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
+{% extends 'dashboard/admin_base.html' %}
+
+{% block title %}Dashboard Home{% endblock %}
+
+{% block content %}
     <h1>Welcome, {{ request.user.username }}</h1>
-    <section>
+    <section class="dashboard-section">
         <h2>Your Subscriptions</h2>
         <ul>
             {% for subscription in subscriptions %}
@@ -16,7 +15,7 @@
             {% endfor %}
         </ul>
     </section>
-    <section>
+    <section class="dashboard-section">
         <h2>Your Invoices</h2>
         <ul>
             {% for invoice in invoices %}
@@ -26,7 +25,7 @@
             {% endfor %}
         </ul>
     </section>
-    <section>
+    <section class="dashboard-section">
         <h2>Your Service Orders</h2>
         <ul>
             {% for order in service_orders %}
@@ -36,5 +35,4 @@
             {% endfor %}
         </ul>
     </section>
-</body>
-</html>
+{% endblock %}

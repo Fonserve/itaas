@@ -1,0 +1,61 @@
+@import 'variables.css';
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-nav {
+    width: 200px;
+    background: var(--secondary-color);
+    color: var(--white);
+    padding: var(--spacing-md);
+}
+
+.dashboard-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dashboard-nav li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.dashboard-nav a {
+    color: var(--white);
+    text-decoration: none;
+    display: block;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+}
+
+.dashboard-nav a:hover {
+    background: var(--primary-color);
+    transition: var(--transition-speed);
+}
+
+.dashboard-nav i {
+    margin-right: var(--spacing-xs);
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    background: var(--light-bg);
+}
+
+.dashboard-section {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+}
+
+.dashboard-footer {
+    text-align: center;
+    padding: var(--spacing-md) 0;
+    background: var(--secondary-color);
+    color: var(--white);
+}
