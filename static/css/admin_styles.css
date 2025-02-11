@@ -17,10 +17,18 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .dashboard-nav li {
     margin-bottom: var(--spacing-xs); /* Reduced margin */
+}
+
+/* New rule to pin the last navigation item */
+.dashboard-nav li.pinned {
+    margin-top: auto;
 }
 
 .dashboard-nav a {

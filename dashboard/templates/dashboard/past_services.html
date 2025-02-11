@@ -1,0 +1,18 @@
+{% extends 'dashboard/admin_base.html' %}
+
+{% block title %}Past Services{% endblock %}
+
+{% block content %}
+  <h1>Past Services</h1>
+  <div class="services-grid">
+    {% for service in past_services %}
+      <div class="service-item">
+        <strong>{{ service.name }}</strong>
+        <p>{{ service.description }}</p>
+        <p>Price: ${{ service.base_price }} ({{ service.get_purchase_type_display }})</p>
+      </div>
+    {% empty %}
+      <p>No past services found.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

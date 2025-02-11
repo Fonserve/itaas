@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Subscription, SubscriptionTier
+from .models import Subscription, SubscriptionPlan
 
 class SubscriptionTierSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SubscriptionTier
+        model = SubscriptionPlan
         fields = '__all__'
 
 class SubscriptionSerializer(serializers.ModelSerializer):

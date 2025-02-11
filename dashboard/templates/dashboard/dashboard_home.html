@@ -11,7 +11,7 @@
         <div class="subscription-list">
             {% for subscription in subscriptions %}
                 <div class="subscription-card">
-                    <h3>{{ subscription.tier.get_name_display }}</h3>
+                    <h3>{{ subscription.plan.name }}</h3>
                     <p>Contract Term: {{ subscription.get_contract_term_display }}</p>
                     <p>Valid until: {{ subscription.end_date }}</p>
                     <p>Next billing: {{ subscription.next_billing_date }}</p>
@@ -31,7 +31,7 @@
                     <h3>{{ order.service.name }}</h3>
                     <p>Status: {{ order.get_status_display }}</p>
                     <p>Duration: {{ order.start_date }} to {{ order.end_date }}</p>
-                    <p>Billing: {{ order.service.get_billing_frequency_display }}</p>
+                    <p>Purchase Type: {{ order.service.get_purchase_type_display }}</p>
                     <p>Total Cost: ${{ order.total_cost }}</p>
                 </div>
             {% empty %}
@@ -41,20 +41,21 @@
     </section>
 
     <section class="dashboard-section">
-        <h2>Available Services</h2>
+        <h2>My Services</h2>
         <ul>
             {% for service in services %}
-                <li>{{ service.name }} - {{ service.description }} - ${{ service.price }} ({{ service.get_service_type_display }})</li>
+                <li>{{ service.name }} - {{ service.description }} - ${{ service.base_price }} ({{ service.get_purchase_type_display }})</li>
             {% empty %}
                 <li>No services available.</li>
             {% endfor %}
         </ul>
+        <a href="{% url 'dashboard:past_services' %}" class="button" style="margin-top: var(--spacing-sm); display: inline-block;">View Past Services</a>
     </section>
     <section class="dashboard-section">
         <h2>Your Invoices</h2>
         <ul>
             {% for invoice in invoices %}
-                <li>Invoice #{{ invoice.id }}: ${{ invoice.amount }} – {% if invoice.paid %}Paid{% else %}Due{% endif %}</li>
+                <li>Invoice #{{ invoice.invoice_number }}: ${{ invoice.amount }} – {% if invoice.status == 'paid' %}Paid{% else %}Due{% endif %}</li>
             {% empty %}
                 <li>No invoices available.</li>
             {% endfor %}

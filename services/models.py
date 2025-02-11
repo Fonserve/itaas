@@ -3,17 +3,15 @@ from django.db import models
 from django.conf import settings
 
 class Service(models.Model):
-    BILLING_FREQUENCY = [
-        ('one_time', 'One-Time Payment'),
-        ('weekly', 'Weekly'),
-        ('biweekly', 'Bi-weekly'),
-        ('monthly', 'Monthly'),
+    PURCHASE_TYPE_CHOICES = [
+        ('instant', 'Instant Purchase'),
+        ('work_order', 'Scheduled Work Order'),
     ]
 
     name = models.CharField(max_length=200)
     description = models.TextField()
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
-    billing_frequency = models.CharField(max_length=20, choices=BILLING_FREQUENCY)
+    purchase_type = models.CharField(max_length=20, choices=PURCHASE_TYPE_CHOICES, default='instant')
     estimated_duration = models.PositiveIntegerField(help_text="Duration in days")
     is_active = models.BooleanField(default=True)
 

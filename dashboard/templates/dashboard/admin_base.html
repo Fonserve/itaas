@@ -38,12 +38,47 @@
     <div class="dashboard-container">
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="{% url 'dashboard:home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="#" {% if request.resolver_match.url_name == 'users' %}class="active"{% endif %}><i class="fas fa-users"></i> Users</a></li>
-                <li><a href="#" {% if request.resolver_match.url_name == 'invoices' %}class="active"{% endif %}><i class="fas fa-file-invoice"></i> Invoices</a></li>
-                <li><a href="{% url 'dashboard:services' %}" {% if request.resolver_match.url_name == 'services' %}class="active"{% endif %}><i class="fas fa-tools"></i> Services</a></li>
-                <li><a href="#" {% if request.resolver_match.url_name == 'settings' %}class="active"{% endif %}><i class="fas fa-cogs"></i> Settings</a></li>
-                <li><a href="{% url 'frontend:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li>
+                    <a href="{% url 'dashboard:home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:my_services' %}" {% if request.resolver_match.url_name == 'my_services' %}class="active"{% endif %}>
+                        <i class="fas fa-concierge-bell"></i> My Services
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:subscriptions' %}" {% if request.resolver_match.url_name == 'subscriptions' %}class="active"{% endif %}>
+                        <i class="fas fa-clipboard-list"></i> My Subscriptions
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:ordering' %}" {% if request.resolver_match.url_name == 'ordering' %}class="active"{% endif %}>
+                        <i class="fas fa-cart-plus"></i> Ordering
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:analytics' %}" {% if request.resolver_match.url_name == 'analytics' %}class="active"{% endif %}>
+                        <i class="fas fa-chart-line"></i> Analytics
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:settings' %}" {% if request.resolver_match.url_name == 'settings' %}class="active"{% endif %}>
+                        <i class="fas fa-cogs"></i> Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'frontend:logout' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+                <!-- Modified Back to Home button pinned to the bottom -->
+                <li class="pinned">
+                    <a href="{% url 'frontend:home' %}" class="small-button">
+                        <i class="fas fa-arrow-left"></i> Site Home
+                    </a>
+                </li>
             </ul>
         </nav>
 

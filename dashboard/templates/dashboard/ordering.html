@@ -1,0 +1,41 @@
+{% extends 'dashboard/admin_base.html' %}
+
+{% block title %}Ordering{% endblock %}
+
+{% block content %}
+  <h1>Order New Services & Subscriptions</h1>
+  
+  <section>
+    <h2>Available Subscription Plans</h2>
+    <div class="subscriptions-grid">
+      {% for subscription in available_subscriptions %}
+        <div class="subscription-item">
+          <h3>{{ subscription.plan.name }}</h3>
+          <p>{{ subscription.plan.description }}</p>
+          <a href="#" class="button">Order Subscription</a>
+        </div>
+      {% empty %}
+        <p>No subscription plans available.</p>
+      {% endfor %}
+    </div>
+  </section>
+  
+  <section>
+    <h2>Available Services</h2>
+    <div class="services-grid">
+      {% for service in new_services %}
+        <div class="service-item">
+          <strong>{{ service.name }}</strong>
+          <p>{{ service.description }}</p>
+          <p>Price: ${{ service.base_price }}</p>
+          <p>{{ service.get_purchase_type_display }}</p>
+          <a href="#" class="button">Order Service</a>
+        </div>
+      {% empty %}
+        <p>No services available.</p>
+      {% endfor %}
+    </div>
+  </section>
+  
+  <!-- Room for additional ordering categories in the future -->
+{% endblock %}

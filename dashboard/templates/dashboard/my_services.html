@@ -1,0 +1,39 @@
+{% extends 'dashboard/admin_base.html' %}
+
+{% block title %}My Services{% endblock %}
+
+{% block content %}
+  <h1>My Services</h1>
+  
+  <section>
+    <h2>Active Services</h2>
+    <div class="services-grid">
+      {% for service in active_services %}
+        <div class="service-item">
+          <strong>{{ service.name }}</strong>
+          <p>{{ service.description }}</p>
+          <p>Price: ${{ service.base_price }} ({{ service.get_purchase_type_display }})</p>
+          <a href="#" class="button">View Details</a>
+        </div>
+      {% empty %}
+        <p>No active services.</p>
+      {% endfor %}
+    </div>
+  </section>
+  
+  <section>
+    <h2>Past Services</h2>
+    <div class="services-grid">
+      {% for service in past_services %}
+        <div class="service-item">
+          <strong>{{ service.name }}</strong>
+          <p>{{ service.description }}</p>
+          <p>Price: ${{ service.base_price }}</p>
+          <a href="#" class="button">View Details</a>
+        </div>
+      {% empty %}
+        <p>No past services.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

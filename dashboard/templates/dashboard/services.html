@@ -43,7 +43,8 @@
         <div class="subscriptions-grid">
             {% for subscription in subscriptions %}
                 <div class="subscription-item">
-                    <p>Contract: {{ subscription.tier.get_name_display }}</p>
+                    <!-- Updated from tier to plan -->
+                    <p>Contract: {{ subscription.plan.name }}</p>
                     <p>Term: {{ subscription.get_contract_term_display }}</p>
                     <p>Valid until: {{ subscription.end_date }}</p>
                     <a href="#" class="button">Modify Subscription</a>

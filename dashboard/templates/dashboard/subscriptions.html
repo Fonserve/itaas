@@ -1,0 +1,22 @@
+{% extends 'dashboard/admin_base.html' %}
+
+{% block title %}My Subscriptions{% endblock %}
+
+{% block content %}
+  <h1>My Subscriptions</h1>
+  <section>
+    <div class="subscriptions-grid">
+      {% for subscription in subscriptions %}
+        <div class="subscription-item">
+          <h3>{{ subscription.plan.name }}</h3>
+          <p>{{ subscription.plan.description }}</p>
+          <p>Contract: {{ subscription.get_contract_term_display }}</p>
+          <p>Valid until: {{ subscription.end_date }}</p>
+          <a href="#" class="button">Manage</a>
+        </div>
+      {% empty %}
+        <p>No active subscriptions.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
