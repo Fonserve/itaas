@@ -5,6 +5,7 @@ from services.models import ServiceOrder, Service
 from subscriptions.models import Subscription
 from billing.models import Invoice
 from django.utils import timezone
+from django.views.generic import TemplateView
 
 @login_required
 def DashboardView(request):
@@ -77,3 +78,61 @@ def SettingsView(request):
     # Placeholder view for settings; functionality to be added later.
     context = {}
     return render(request, 'dashboard/settings.html', context)
+
+@login_required
+def MessagingView(request):
+    # Get all unique users the current user has communicated with
+    from messaging.models import Message
+    from django.db.models import Q, Count, Max
+    from django.contrib.auth import get_user_model
+    
+    User = get_user_model()
+    
+    # Find users who have conversations with the current user
+    user_conversations = User.objects.filter(
+        Q(sent_messages__recipient=request.user) | Q(received_messages__sender=request.user)
+    ).distinct().exclude(id=request.user.id)
+    
+    contacts = []
+    for user in user_conversations:
+        # Count unread messages from this user
+        unread_count = Message.objects.filter(
+            sender=user, 
+            recipient=request.user,
+            read=False
+        ).count()
+        
+        # Get the last message between these users
+        last_message = Message.objects.filter(
+            Q(sender=user, recipient=request.user) | Q(sender=request.user, recipient=user)
+        ).order_by('-timestamp').first()
+        
+        contacts.append({
+            'id': user.id,
+            'name': user.get_full_name() or user.username,
+            'unread': unread_count,
+            'last_message': last_message.content if last_message else ""
+        })
+    
+    # Add support team as a default contact if no existing contacts
+    if not contacts:
+        # Find a staff user for support
+        support_user = User.objects.filter(is_staff=True).first()
+        if support_user:
+            contacts.append({
+                'id': support_user.id,
+                'name': 'Support Team',
+                'unread': 0,
+                'last_message': "How can we help you today?"
+            })
+    
+    # Get a list of available users for new chats
+    # This will be used for initial rendering, but the full list will be loaded via AJAX
+    available_users = User.objects.exclude(id=request.user.id).order_by('username')[:10]
+    
+    context = {
+        'contacts': contacts,
+        'available_users': available_users,
+    }
+    
+    return render(request, 'dashboard/messaging.html', context)

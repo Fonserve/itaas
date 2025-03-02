@@ -12,5 +12,6 @@ urlpatterns = [
     path('past_services/', views.PastServicesView, name='past_services'),
     path('ordering/', views.OrderingView, name='ordering'),
     path('analytics/', views.AnalyticsView, name='analytics'),
+    path('messaging/', views.MessagingView, name='messaging'),  # Changed from .as_view() to direct function reference
     path('settings/', views.SettingsView, name='settings'),
 ]

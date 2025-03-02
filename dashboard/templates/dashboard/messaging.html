@@ -1,0 +1,92 @@
+{% extends 'dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}Messages{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/messaging.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Messages</h1>
+
+<div class="messaging-container">
+    <!-- Contacts/Conversations Sidebar -->
+    <div class="contacts-list">
+        <button class="new-chat-button" id="new-chat-btn">
+            <i class="fas fa-plus"></i> New Chat
+        </button>
+        
+        <div id="contacts-container">
+            <!-- Contacts will be dynamically loaded here -->
+        </div>
+    </div>
+    
+    <!-- Chat Window -->
+    <div class="chat-window">
+        <div class="chat-header">
+            <h2>Select a conversation</h2>
+        </div>
+        
+        <div class="messages-container" id="messages-container">
+            <div class="empty-state">
+                <i class="fas fa-comments"></i>
+                <p>Select a conversation or start a new chat</p>
+            </div>
+        </div>
+        
+        <div class="message-input">
+            <input type="text" id="message-text" placeholder="Type your message here...">
+            <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- New Chat Modal -->
+<div id="new-chat-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Start a New Chat</h2>
+            <span class="close">&times;</span>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="direct-chat">Direct Chat</div>
+            <div class="tab" data-tab="group-chat">Group Chat</div>
+        </div>
+        
+        <!-- Direct Chat Tab -->
+        <div class="tab-content active" id="direct-chat">
+            <input type="text" class="user-search" id="direct-user-search" placeholder="Search users...">
+            <div class="user-list" id="direct-user-list">
+                <!-- Users will be loaded here via JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Group Chat Tab -->
+        <div class="tab-content" id="group-chat">
+            <input type="text" class="group-name" placeholder="Group name">
+            <input type="text" class="user-search" id="group-user-search" placeholder="Search users to add...">
+            <div class="user-list" id="group-user-list">
+                <!-- Users will be loaded here via JavaScript -->
+            </div>
+            <div class="selected-users" id="selected-users">
+                <!-- Selected users will be displayed here -->
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="cancel" id="cancel-new-chat">Cancel</button>
+            <button class="create" id="create-new-chat">Create</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Pass user ID to JavaScript -->
+<script>
+    const CURRENT_USER_ID = {{ request.user.id }};
+</script>
+<script src="{% static 'dashboard/js/messaging.js' %}"></script>
+{% endblock %}

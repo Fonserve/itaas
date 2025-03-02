@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Django Channels configuration
-ASGI_APPLICATION = "itaas_project.asgi.application"
+ASGI_APPLICATION = "itaas_project.routing.application"
 
 CHANNEL_LAYERS = {
     "default": {
