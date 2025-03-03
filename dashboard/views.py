@@ -9,11 +9,18 @@ from django.views.generic import TemplateView
 
 @login_required
 def DashboardView(request):
+    # Get the latest 5 unread notifications
+    from notifications.models import Notification
+    
     context = {
         'subscriptions': Subscription.objects.filter(user=request.user),
         'invoices': request.user.invoices.all(),
         'service_orders': request.user.service_orders.all(),
         'services': Service.objects.all(),
+        'recent_notifications': Notification.objects.filter(
+            recipient=request.user,
+            read=False
+        ).order_by('-created_at')[:5],
     }
     return render(request, 'dashboard/dashboard_home.html', context)
 

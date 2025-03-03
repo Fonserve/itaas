@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'billing',
     'messaging',
     'dashboard',
-    'frontend'
+    'frontend',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'notifications.middleware.NotificationMiddleware',  # Add this line after AuthenticationMiddleware
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

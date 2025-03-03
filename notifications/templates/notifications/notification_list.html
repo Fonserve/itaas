@@ -1,0 +1,176 @@
+{% extends 'dashboard/admin_base.html' %}
+
+{% block title %}Notifications{% endblock %}
+{% block header_title %}Notifications{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    .notification-list {
+        margin-top: 20px;
+    }
+    .notification-item {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-left: 4px solid #007bff;
+        background-color: #f8f9fa;
+    }
+    .notification-item.unread {
+        background-color: #e9f5ff;
+    }
+    .notification-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    .notification-title {
+        font-weight: bold;
+        margin: 0;
+    }
+    .notification-time {
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+    .notification-actions {
+        margin-top: 10px;
+        text-align: right;
+    }
+    .notification-actions a {
+        margin-left: 10px;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    .notification-badge {
+        padding: 3px 7px;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        margin-left: 8px;
+    }
+    .badge-billing { background-color: #ffc107; color: #212529; }
+    .badge-message { background-color: #28a745; color: white; }
+    .badge-service { background-color: #17a2b8; color: white; }
+    .badge-subscription { background-color: #6c757d; color: white; }
+    .badge-system { background-color: #dc3545; color: white; }
+    
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #6c757d;
+    }
+    
+    .empty-state i {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #dee2e6;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Your Notifications</h3>
+        <div>
+            {% if unread_count > 0 %}
+            <a href="{% url 'notifications:mark_all_read' %}" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-check-double"></i> Mark all as read
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="notification-list">
+        {% for notification in notifications %}
+        <div class="notification-item {% if not notification.read %}unread{% endif %}" id="notification-{{ notification.id }}">
+            <div class="notification-header">
+                <h5 class="notification-title">
+                    {{ notification.title }}
+                    <span class="notification-badge badge-{{ notification.notification_type }}">
+                        {{ notification.get_notification_type_display }}
+                    </span>
+                </h5>
+                <span class="notification-time">{{ notification.created_at|timesince }} ago</span>
+            </div>
+            <div class="notification-message">
+                {{ notification.message }}
+            </div>
+            <div class="notification-actions">
+                {% if not notification.read %}
+                <a href="{% url 'notifications:mark_read' notification.id %}" class="mark-read" data-id="{{ notification.id }}">
+                    <i class="fas fa-check"></i> Mark as read
+                </a>
+                {% endif %}
+                <a href="{% url 'notifications:delete' notification.id %}" class="delete-notification" data-id="{{ notification.id }}">
+                    <i class="fas fa-trash"></i> Delete
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-bell-slash"></i>
+            <p>You don't have any notifications yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // AJAX for marking notifications as read
+    document.addEventListener('DOMContentLoaded', function() {
+        const markReadLinks = document.querySelectorAll('.mark-read');
+        const deleteLinks = document.querySelectorAll('.delete-notification');
+        
+        markReadLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.getAttribute('data-id');
+                const url = this.getAttribute('href');
+                
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const notification = document.getElementById(`notification-${id}`);
+                        notification.classList.remove('unread');
+                        this.style.display = 'none';
+                        updateNotificationCount();
+                    }
+                });
+            });
+        });
+        
+        deleteLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.getAttribute('data-id');
+                const url = this.getAttribute('href');
+                
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const notification = document.getElementById(`notification-${id}`);
+                        notification.remove();
+                        updateNotificationCount();
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

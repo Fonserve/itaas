@@ -2,9 +2,31 @@
 {% extends 'dashboard/admin_base.html' %}
 
 {% block title %}Dashboard Home{% endblock %}
+{% block header_title %}Dashboard Overview{% endblock %}
 
 {% block content %}
-    <h1>Welcome, {{ request.user.username }}</h1>
+    <h3>Welcome, {{ request.user.username }}</h3>
+    
+    {% if recent_notifications %}
+    <section class="dashboard-section">
+        <h4>Recent Notifications <a href="{% url 'notifications:list' %}" class="small-link">View all</a></h4>
+        <div class="notification-preview-list">
+            {% for notification in recent_notifications %}
+                <div class="notification-item unread">
+                    <div class="notification-header">
+                        <h5 class="notification-title">
+                            {{ notification.title }}
+                        </h5>
+                        <span class="notification-time">{{ notification.created_at|timesince }} ago</span>
+                    </div>
+                    <div class="notification-message">
+                        {{ notification.message|truncatechars:100 }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
     
     <section class="dashboard-section">
         <h2>Your Service Contracts</h2>
@@ -61,4 +83,43 @@
             {% endfor %}
         </ul>
     </section>
+{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    /* Notification preview styles */
+    .notification-preview-list {
+        margin-top: 10px;
+    }
+    
+    .notification-preview-list .notification-item {
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 5px;
+        border-left: 4px solid #007bff;
+        background-color: #e9f5ff;
+    }
+    
+    .notification-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    
+    .notification-title {
+        font-weight: bold;
+        margin: 0;
+    }
+    
+    .notification-time {
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+    
+    .small-link {
+        font-size: 0.85rem;
+        margin-left: 10px;
+    }
+</style>
 {% endblock %}
